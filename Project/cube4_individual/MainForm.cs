@@ -38,16 +38,19 @@ namespace CompanyDirectoryApp
         {
             using (var passwordForm = new PasswordPrompt())
             {
-                if (passwordForm.ShowDialog() == DialogResult.OK && passwordForm.IsPasswordCorrect)
+                DialogResult result = passwordForm.ShowDialog();
+                if (result == DialogResult.OK && passwordForm.IsPasswordCorrect)
                 {
-                    MessageBox.Show("Admin mode enabled", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Admin mode enabled (no message shown)
                 }
-                else
+                else if (result != DialogResult.Cancel)
                 {
+                    // Only show the error if the dialog result was not Cancel
                     MessageBox.Show("Incorrect password", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
 
         private void LoadEmployeeData()
         {
