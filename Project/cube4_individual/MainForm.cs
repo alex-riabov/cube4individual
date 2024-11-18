@@ -15,12 +15,41 @@ namespace CompanyDirectoryApp
             InitializeComponent();
             LoadEmployeeData();
             LoadLocationAndServiceFilters();
+        }
 
-            // Event handlers for search and admin mode button
-            NameSearchTextBox.TextChanged += NameSearchTextBox_TextChanged;
-            SiteSearchComboBox.SelectedIndexChanged += SiteSearchComboBox_SelectedIndexChanged;
-            ServiceSearchComboBox.SelectedIndexChanged += ServiceSearchComboBox_SelectedIndexChanged;
-            AdminModeButton.Click += AdminModeButton_Click;
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Detect key combination (e.g., Ctrl + Shift + A)
+            if (e.Control && e.Shift && e.KeyCode == Keys.A)
+            {
+                TriggerAdminMode();
+            }
+        }
+
+        private void TriggerAdminMode()
+        {
+            if (!isAdminMode)
+            {
+                using (var passwordForm = new PasswordPrompt())
+                {
+                    if (passwordForm.ShowDialog() == DialogResult.OK && passwordForm.IsPasswordCorrect)
+                    {
+                        isAdminMode = true;
+                        MessageBox.Show("Admin mode enabled", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        EnableAdminControls();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Incorrect password", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                isAdminMode = false;
+                MessageBox.Show("Admin mode disabled", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DisableAdminControls();
+            }
         }
 
         private void LoadEmployeeData()
@@ -51,65 +80,9 @@ namespace CompanyDirectoryApp
             ServiceSearchComboBox.SelectedIndex = 0;
         }
 
-        private void NameSearchTextBox_TextChanged(object sender, EventArgs e)
-        {
-            string filterText = NameSearchTextBox.Text.ToLower();
-            DataView dv = employeeData.DefaultView;
-            dv.RowFilter = $"first_name LIKE '%{filterText}%' OR last_name LIKE '%{filterText}%'";
-            employeeDataGridView.DataSource = dv.ToTable();
-        }
-
-        private void SiteSearchComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FilterData();
-        }
-
-        private void ServiceSearchComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FilterData();
-        }
-
-        private void FilterData()
-        {
-            string locationFilter = SiteSearchComboBox.SelectedItem.ToString() == "All Locations" ? "" : SiteSearchComboBox.SelectedItem.ToString();
-            string serviceFilter = ServiceSearchComboBox.SelectedItem.ToString() == "All Services" ? "" : ServiceSearchComboBox.SelectedItem.ToString();
-
-            DataView dv = employeeData.DefaultView;
-            dv.RowFilter = $"(location LIKE '%{locationFilter}%' OR '{locationFilter}' = '') AND (service_name LIKE '%{serviceFilter}%' OR '{serviceFilter}' = '')";
-            employeeDataGridView.DataSource = dv.ToTable();
-        }
-
-        private void AdminModeButton_Click(object sender, EventArgs e)
-        {
-            if (!isAdminMode)
-            {
-                using (var passwordForm = new PasswordPrompt())
-                {
-                    if (passwordForm.ShowDialog() == DialogResult.OK && passwordForm.IsPasswordCorrect)
-                    {
-                        isAdminMode = true;
-                        AdminModeButton.Text = "Exit Admin Mode";
-                        MessageBox.Show("Admin mode enabled", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        EnableAdminControls();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Incorrect password", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            else
-            {
-                isAdminMode = false;
-                AdminModeButton.Text = "Enter Admin Mode";
-                MessageBox.Show("Admin mode disabled", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DisableAdminControls();
-            }
-        }
-
         private void EnableAdminControls()
         {
-            // Code to enable CRUD controls for locations, services, and employees
+            // Code to enable CRUD controls for admin mode
         }
 
         private void DisableAdminControls()

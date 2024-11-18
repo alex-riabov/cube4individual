@@ -10,7 +10,6 @@
         private System.Windows.Forms.Label NameSearchLabel;
         private System.Windows.Forms.Label LocationSearchLabel;
         private System.Windows.Forms.Label ServiceSearchLabel;
-        private System.Windows.Forms.Button AdminModeButton;
 
         protected override void Dispose(bool disposing)
         {
@@ -30,7 +29,6 @@
             NameSearchLabel = new Label();
             LocationSearchLabel = new Label();
             ServiceSearchLabel = new Label();
-            AdminModeButton = new Button();
             ((System.ComponentModel.ISupportInitialize)employeeDataGridView).BeginInit();
             SuspendLayout();
 
@@ -99,22 +97,11 @@
             ServiceSearchLabel.Text = "Filter by Service:";
 
             // 
-            // AdminModeButton
-            // 
-            AdminModeButton.Location = new Point(12, 270);
-            AdminModeButton.Name = "AdminModeButton";
-            AdminModeButton.Size = new Size(227, 29);
-            AdminModeButton.TabIndex = 4;
-            AdminModeButton.Text = "Enter Admin Mode";
-            AdminModeButton.UseVisualStyleBackColor = true;
-
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1262, 673);
-            Controls.Add(AdminModeButton);
             Controls.Add(NameSearchLabel);
             Controls.Add(LocationSearchLabel);
             Controls.Add(ServiceSearchLabel);
@@ -125,6 +112,8 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "MainForm";
             Text = "Company Directory";
+            KeyPreview = true; // Allow KeyDown events to be detected
+            KeyDown += MainForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)employeeDataGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
