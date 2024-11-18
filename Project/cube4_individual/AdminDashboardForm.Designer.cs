@@ -25,136 +25,135 @@
 
         private void InitializeComponent()
         {
-            this.employeeDataGridView = new System.Windows.Forms.DataGridView();
-            this.AddEmployeeButton = new System.Windows.Forms.Button();
-            this.UpdateEmployeeButton = new System.Windows.Forms.Button();
-            this.DeleteEmployeeButton = new System.Windows.Forms.Button();
-            this.AddServiceButton = new System.Windows.Forms.Button();
-            this.UpdateServiceButton = new System.Windows.Forms.Button();
-            this.DeleteServiceButton = new System.Windows.Forms.Button();
-            this.AddLocationButton = new System.Windows.Forms.Button();
-            this.UpdateLocationButton = new System.Windows.Forms.Button();
-            this.DeleteLocationButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.employeeDataGridView)).BeginInit();
-            this.SuspendLayout();
-
+            employeeDataGridView = new DataGridView();
+            AddEmployeeButton = new Button();
+            UpdateEmployeeButton = new Button();
+            DeleteEmployeeButton = new Button();
+            AddServiceButton = new Button();
+            UpdateServiceButton = new Button();
+            DeleteServiceButton = new Button();
+            AddLocationButton = new Button();
+            UpdateLocationButton = new Button();
+            DeleteLocationButton = new Button();
+            ((System.ComponentModel.ISupportInitialize)employeeDataGridView).BeginInit();
+            SuspendLayout();
             // 
             // employeeDataGridView
             // 
-            this.employeeDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.employeeDataGridView.Location = new System.Drawing.Point(20, 20);
-            this.employeeDataGridView.Name = "employeeDataGridView";
-            this.employeeDataGridView.Size = new System.Drawing.Size(800, 400);
-            this.employeeDataGridView.TabIndex = 0;
-
+            employeeDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            employeeDataGridView.Location = new Point(20, 20);
+            employeeDataGridView.Name = "employeeDataGridView";
+            employeeDataGridView.RowHeadersWidth = 51;
+            employeeDataGridView.Size = new Size(800, 400);
+            employeeDataGridView.TabIndex = 0;
             // 
             // AddEmployeeButton
             // 
-            this.AddEmployeeButton.Location = new System.Drawing.Point(850, 20);
-            this.AddEmployeeButton.Name = "AddEmployeeButton";
-            this.AddEmployeeButton.Size = new System.Drawing.Size(150, 30);
-            this.AddEmployeeButton.Text = "Add Employee";
-            this.AddEmployeeButton.UseVisualStyleBackColor = true;
-            this.AddEmployeeButton.Click += new System.EventHandler(this.AddEmployeeButton_Click);
-
+            AddEmployeeButton.Location = new Point(850, 20);
+            AddEmployeeButton.Name = "AddEmployeeButton";
+            AddEmployeeButton.Size = new Size(150, 30);
+            AddEmployeeButton.TabIndex = 1;
+            AddEmployeeButton.Text = "Add Employee";
+            AddEmployeeButton.UseVisualStyleBackColor = true;
+            AddEmployeeButton.Click += AddEmployeeButton_Click;
             // 
             // UpdateEmployeeButton
             // 
-            this.UpdateEmployeeButton.Location = new System.Drawing.Point(850, 60);
-            this.UpdateEmployeeButton.Name = "UpdateEmployeeButton";
-            this.UpdateEmployeeButton.Size = new System.Drawing.Size(150, 30);
-            this.UpdateEmployeeButton.Text = "Update Employee";
-            this.UpdateEmployeeButton.UseVisualStyleBackColor = true;
-            this.UpdateEmployeeButton.Click += new System.EventHandler(this.UpdateEmployeeButton_Click);
-
+            UpdateEmployeeButton.Location = new Point(850, 60);
+            UpdateEmployeeButton.Name = "UpdateEmployeeButton";
+            UpdateEmployeeButton.Size = new Size(150, 30);
+            UpdateEmployeeButton.TabIndex = 2;
+            UpdateEmployeeButton.Text = "Update Employee";
+            UpdateEmployeeButton.UseVisualStyleBackColor = true;
+            UpdateEmployeeButton.Click += UpdateEmployeeButton_Click;
             // 
             // DeleteEmployeeButton
             // 
-            this.DeleteEmployeeButton.Location = new System.Drawing.Point(850, 100);
-            this.DeleteEmployeeButton.Name = "DeleteEmployeeButton";
-            this.DeleteEmployeeButton.Size = new System.Drawing.Size(150, 30);
-            this.DeleteEmployeeButton.Text = "Delete Employee";
-            this.DeleteEmployeeButton.UseVisualStyleBackColor = true;
-            this.DeleteEmployeeButton.Click += new System.EventHandler(this.DeleteEmployeeButton_Click);
-
+            DeleteEmployeeButton.Location = new Point(850, 100);
+            DeleteEmployeeButton.Name = "DeleteEmployeeButton";
+            DeleteEmployeeButton.Size = new Size(150, 30);
+            DeleteEmployeeButton.TabIndex = 3;
+            DeleteEmployeeButton.Text = "Delete Employee";
+            DeleteEmployeeButton.UseVisualStyleBackColor = true;
+            DeleteEmployeeButton.Click += DeleteEmployeeButton_Click;
             // 
             // AddServiceButton
             // 
-            this.AddServiceButton.Location = new System.Drawing.Point(850, 140);
-            this.AddServiceButton.Name = "AddServiceButton";
-            this.AddServiceButton.Size = new System.Drawing.Size(150, 30);
-            this.AddServiceButton.Text = "Add Service";
-            this.AddServiceButton.UseVisualStyleBackColor = true;
-            this.AddServiceButton.Click += new System.EventHandler(this.AddServiceButton_Click);
-
+            AddServiceButton.Location = new Point(850, 163);
+            AddServiceButton.Name = "AddServiceButton";
+            AddServiceButton.Size = new Size(150, 30);
+            AddServiceButton.TabIndex = 4;
+            AddServiceButton.Text = "Add Service";
+            AddServiceButton.UseVisualStyleBackColor = true;
+            AddServiceButton.Click += AddServiceButton_Click;
             // 
             // UpdateServiceButton
             // 
-            this.UpdateServiceButton.Location = new System.Drawing.Point(850, 180);
-            this.UpdateServiceButton.Name = "UpdateServiceButton";
-            this.UpdateServiceButton.Size = new System.Drawing.Size(150, 30);
-            this.UpdateServiceButton.Text = "Update Service";
-            this.UpdateServiceButton.UseVisualStyleBackColor = true;
-            this.UpdateServiceButton.Click += new System.EventHandler(this.UpdateServiceButton_Click);
-
+            UpdateServiceButton.Location = new Point(850, 203);
+            UpdateServiceButton.Name = "UpdateServiceButton";
+            UpdateServiceButton.Size = new Size(150, 30);
+            UpdateServiceButton.TabIndex = 5;
+            UpdateServiceButton.Text = "Update Service";
+            UpdateServiceButton.UseVisualStyleBackColor = true;
+            UpdateServiceButton.Click += UpdateServiceButton_Click;
             // 
             // DeleteServiceButton
             // 
-            this.DeleteServiceButton.Location = new System.Drawing.Point(850, 220);
-            this.DeleteServiceButton.Name = "DeleteServiceButton";
-            this.DeleteServiceButton.Size = new System.Drawing.Size(150, 30);
-            this.DeleteServiceButton.Text = "Delete Service";
-            this.DeleteServiceButton.UseVisualStyleBackColor = true;
-            this.DeleteServiceButton.Click += new System.EventHandler(this.DeleteServiceButton_Click);
-
+            DeleteServiceButton.Location = new Point(850, 243);
+            DeleteServiceButton.Name = "DeleteServiceButton";
+            DeleteServiceButton.Size = new Size(150, 30);
+            DeleteServiceButton.TabIndex = 6;
+            DeleteServiceButton.Text = "Delete Service";
+            DeleteServiceButton.UseVisualStyleBackColor = true;
+            DeleteServiceButton.Click += DeleteServiceButton_Click;
             // 
             // AddLocationButton
             // 
-            this.AddLocationButton.Location = new System.Drawing.Point(850, 260);
-            this.AddLocationButton.Name = "AddLocationButton";
-            this.AddLocationButton.Size = new System.Drawing.Size(150, 30);
-            this.AddLocationButton.Text = "Add Location";
-            this.AddLocationButton.UseVisualStyleBackColor = true;
-            this.AddLocationButton.Click += new System.EventHandler(this.AddLocationButton_Click);
-
+            AddLocationButton.Location = new Point(850, 309);
+            AddLocationButton.Name = "AddLocationButton";
+            AddLocationButton.Size = new Size(150, 30);
+            AddLocationButton.TabIndex = 7;
+            AddLocationButton.Text = "Add Location";
+            AddLocationButton.UseVisualStyleBackColor = true;
+            AddLocationButton.Click += AddLocationButton_Click;
             // 
             // UpdateLocationButton
             // 
-            this.UpdateLocationButton.Location = new System.Drawing.Point(850, 300);
-            this.UpdateLocationButton.Name = "UpdateLocationButton";
-            this.UpdateLocationButton.Size = new System.Drawing.Size(150, 30);
-            this.UpdateLocationButton.Text = "Update Location";
-            this.UpdateLocationButton.UseVisualStyleBackColor = true;
-            this.UpdateLocationButton.Click += new System.EventHandler(this.UpdateLocationButton_Click);
-
+            UpdateLocationButton.Location = new Point(850, 349);
+            UpdateLocationButton.Name = "UpdateLocationButton";
+            UpdateLocationButton.Size = new Size(150, 30);
+            UpdateLocationButton.TabIndex = 8;
+            UpdateLocationButton.Text = "Update Location";
+            UpdateLocationButton.UseVisualStyleBackColor = true;
+            UpdateLocationButton.Click += UpdateLocationButton_Click;
             // 
             // DeleteLocationButton
             // 
-            this.DeleteLocationButton.Location = new System.Drawing.Point(850, 340);
-            this.DeleteLocationButton.Name = "DeleteLocationButton";
-            this.DeleteLocationButton.Size = new System.Drawing.Size(150, 30);
-            this.DeleteLocationButton.Text = "Delete Location";
-            this.DeleteLocationButton.UseVisualStyleBackColor = true;
-            this.DeleteLocationButton.Click += new System.EventHandler(this.DeleteLocationButton_Click);
-
+            DeleteLocationButton.Location = new Point(850, 389);
+            DeleteLocationButton.Name = "DeleteLocationButton";
+            DeleteLocationButton.Size = new Size(150, 30);
+            DeleteLocationButton.TabIndex = 9;
+            DeleteLocationButton.Text = "Delete Location";
+            DeleteLocationButton.UseVisualStyleBackColor = true;
+            DeleteLocationButton.Click += DeleteLocationButton_Click;
             // 
             // AdminDashboardForm
             // 
-            this.ClientSize = new System.Drawing.Size(1020, 450);
-            this.Controls.Add(this.employeeDataGridView);
-            this.Controls.Add(this.AddEmployeeButton);
-            this.Controls.Add(this.UpdateEmployeeButton);
-            this.Controls.Add(this.DeleteEmployeeButton);
-            this.Controls.Add(this.AddServiceButton);
-            this.Controls.Add(this.UpdateServiceButton);
-            this.Controls.Add(this.DeleteServiceButton);
-            this.Controls.Add(this.AddLocationButton);
-            this.Controls.Add(this.UpdateLocationButton);
-            this.Controls.Add(this.DeleteLocationButton);
-            this.Name = "AdminDashboardForm";
-            this.Text = "Admin Dashboard";
-            ((System.ComponentModel.ISupportInitialize)(this.employeeDataGridView)).EndInit();
-            this.ResumeLayout(false);
+            ClientSize = new Size(1262, 673);
+            Controls.Add(employeeDataGridView);
+            Controls.Add(AddEmployeeButton);
+            Controls.Add(UpdateEmployeeButton);
+            Controls.Add(DeleteEmployeeButton);
+            Controls.Add(AddServiceButton);
+            Controls.Add(UpdateServiceButton);
+            Controls.Add(DeleteServiceButton);
+            Controls.Add(AddLocationButton);
+            Controls.Add(UpdateLocationButton);
+            Controls.Add(DeleteLocationButton);
+            Name = "AdminDashboardForm";
+            Text = "Admin Dashboard";
+            ((System.ComponentModel.ISupportInitialize)employeeDataGridView).EndInit();
+            ResumeLayout(false);
         }
     }
 }

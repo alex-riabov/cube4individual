@@ -10,7 +10,7 @@ namespace CompanyDirectoryApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new MainForm()); // Replace `MainForm` with `AdminDashboardForm` for testing the admin interface
         }
     }
 }
