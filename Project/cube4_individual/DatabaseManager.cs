@@ -27,6 +27,34 @@ namespace CompanyDirectoryApp
             }
         }
 
+        public DataTable GetServicesTable()
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT id, service_name FROM Services";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+                return dataTable;
+            }
+        }
+
+        public DataTable GetLocationsTable()
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT id, city FROM Locations";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+                return dataTable;
+            }
+        }
+
         public List<Location> GetLocations()
         {
             List<Location> locations = new List<Location>();
@@ -47,8 +75,6 @@ namespace CompanyDirectoryApp
             }
             return locations;
         }
-
-
 
         public List<Service> GetServices()
         {
@@ -71,8 +97,6 @@ namespace CompanyDirectoryApp
             return services;
         }
 
-
-        // Add a new employee
         public bool AddEmployee(string firstName, string lastName, string fixedPhone, string mobilePhone, string email, int serviceId, int locationId)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -94,7 +118,6 @@ namespace CompanyDirectoryApp
             }
         }
 
-        // Add a new service
         public bool AddService(string serviceName)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -108,7 +131,6 @@ namespace CompanyDirectoryApp
             }
         }
 
-        // Add a new location
         public bool AddLocation(string city)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -128,10 +150,10 @@ namespace CompanyDirectoryApp
             {
                 conn.Open();
                 string query = @"
-            UPDATE Employees 
-            SET first_name = @firstName, last_name = @lastName, fixed_phone = @fixedPhone, mobile_phone = @mobilePhone, email = @Email, 
-                service_id = @serviceId, location_id = @locationId 
-            WHERE id = @id";
+                    UPDATE Employees 
+                    SET first_name = @firstName, last_name = @lastName, fixed_phone = @fixedPhone, mobile_phone = @mobilePhone, email = @Email, 
+                        service_id = @serviceId, location_id = @locationId 
+                    WHERE id = @id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.Parameters.AddWithValue("@firstName", firstName);
@@ -159,33 +181,6 @@ namespace CompanyDirectoryApp
             }
         }
 
-        public bool UpdateService(int id, string serviceName)
-        {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-                string query = "UPDATE Services SET service_name = @serviceName WHERE id = @id";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.Parameters.AddWithValue("@serviceName", serviceName);
-
-                return cmd.ExecuteNonQuery() > 0;
-            }
-        }
-
-        public bool DeleteService(int id)
-        {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-                string query = "DELETE FROM Services WHERE id = @id";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", id);
-
-                return cmd.ExecuteNonQuery() > 0;
-            }
-        }
-
         public bool UpdateLocation(int id, string city)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -195,7 +190,6 @@ namespace CompanyDirectoryApp
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.Parameters.AddWithValue("@city", city);
-
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
@@ -208,7 +202,31 @@ namespace CompanyDirectoryApp
                 string query = "DELETE FROM Locations WHERE id = @id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", id);
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
 
+        public bool UpdateService(int id, string serviceName)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "UPDATE Services SET service_name = @serviceName WHERE id = @id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@serviceName", serviceName);
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+
+        public bool DeleteService(int id)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "DELETE FROM Services WHERE id = @id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", id);
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
@@ -219,10 +237,10 @@ namespace CompanyDirectoryApp
             {
                 conn.Open();
                 string query = @"
-            SELECT e.id, e.first_name, e.last_name, e.fixed_phone, e.mobile_phone, e.email, 
-                   e.service_id, e.location_id
-            FROM Employees e
-            WHERE e.id = @id";
+                    SELECT e.id, e.first_name, e.last_name, e.fixed_phone, e.mobile_phone, e.email, 
+                           e.service_id, e.location_id
+                    FROM Employees e
+                    WHERE e.id = @id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", id);
 
@@ -240,6 +258,54 @@ namespace CompanyDirectoryApp
                             Email = reader.GetString("email"),
                             ServiceId = reader.GetInt32("service_id"),
                             LocationId = reader.GetInt32("location_id")
+                        };
+                    }
+                }
+            }
+            return null;
+        }
+
+        public Service GetServiceById(int id)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT id, service_name FROM Services WHERE id = @id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new Service
+                        {
+                            Id = reader.GetInt32("id"),
+                            ServiceName = reader.GetString("service_name")
+                        };
+                    }
+                }
+            }
+            return null;
+        }
+
+        public Location GetLocationById(int id)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT id, city FROM Locations WHERE id = @id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new Location
+                        {
+                            Id = reader.GetInt32("id"),
+                            City = reader.GetString("city")
                         };
                     }
                 }

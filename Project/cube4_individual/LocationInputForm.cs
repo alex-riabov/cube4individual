@@ -5,11 +5,29 @@ namespace CompanyDirectoryApp
 {
     public partial class LocationInputForm : Form
     {
+        public int LocationId { get; private set; }
         public string City => txtCity.Text;
 
         public LocationInputForm()
         {
             InitializeComponent();
+        }
+
+        // Constructor for updating an existing location
+        public LocationInputForm(int locationId)
+        {
+            InitializeComponent();
+            LocationId = locationId;
+            LoadLocationDetails();
+        }
+
+        private void LoadLocationDetails()
+        {
+            var location = new DatabaseManager().GetLocationById(LocationId);
+            if (location != null)
+            {
+                txtCity.Text = location.City;
+            }
         }
 
         private void SubmitButton_Click(object sender, EventArgs e)

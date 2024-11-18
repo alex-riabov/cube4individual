@@ -8,11 +8,27 @@ namespace CompanyDirectoryApp
     {
         private DatabaseManager dbManager = new DatabaseManager();
         private DataTable employeeData;
+        private DataTable serviceData;
+        private DataTable locationData;
 
         public AdminDashboardForm()
         {
             InitializeComponent();
             LoadEmployeeData();
+            LoadServiceData();
+            LoadLocationData();
+
+            employeeDataGridView.ReadOnly = true;
+            employeeDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            employeeDataGridView.AllowUserToAddRows = false;
+
+            serviceDataGridView.ReadOnly = true;
+            serviceDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            serviceDataGridView.AllowUserToAddRows = false;
+
+            locationDataGridView.ReadOnly = true;
+            locationDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            locationDataGridView.AllowUserToAddRows = false;
         }
 
         private void LoadEmployeeData()
@@ -24,7 +40,33 @@ namespace CompanyDirectoryApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error loading employee data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadServiceData()
+        {
+            try
+            {
+                serviceData = dbManager.GetServicesTable();
+                serviceDataGridView.DataSource = serviceData;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading service data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadLocationData()
+        {
+            try
+            {
+                locationData = dbManager.GetLocationsTable();
+                locationDataGridView.DataSource = locationData;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading location data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -132,7 +174,7 @@ namespace CompanyDirectoryApp
                     if (success)
                     {
                         MessageBox.Show("Service added successfully.", "Success");
-                        // Optionally refresh the data
+                        LoadServiceData();
                     }
                     else
                     {
@@ -144,12 +186,56 @@ namespace CompanyDirectoryApp
 
         private void UpdateServiceButton_Click(object sender, EventArgs e)
         {
-            // Implement logic similar to UpdateEmployeeButton_Click
+            if (serviceDataGridView.SelectedRows.Count > 0)
+            {
+                int selectedId = Convert.ToInt32(serviceDataGridView.SelectedRows[0].Cells["id"].Value);
+                using (var inputForm = new ServiceInputForm(selectedId))
+                {
+                    if (inputForm.ShowDialog() == DialogResult.OK)
+                    {
+                        bool success = dbManager.UpdateService(selectedId, inputForm.ServiceName);
+                        if (success)
+                        {
+                            MessageBox.Show("Service updated successfully.", "Success");
+                            LoadServiceData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to update service.", "Error");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a service to update.", "Info");
+            }
         }
 
         private void DeleteServiceButton_Click(object sender, EventArgs e)
         {
-            // Implement logic similar to DeleteEmployeeButton_Click
+            if (serviceDataGridView.SelectedRows.Count > 0)
+            {
+                int selectedId = Convert.ToInt32(serviceDataGridView.SelectedRows[0].Cells["id"].Value);
+                var confirmResult = MessageBox.Show("Are you sure you want to delete this service?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    bool success = dbManager.DeleteService(selectedId);
+                    if (success)
+                    {
+                        MessageBox.Show("Service deleted successfully.", "Success");
+                        LoadServiceData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to delete service.", "Error");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a service to delete.", "Info");
+            }
         }
 
         private void AddLocationButton_Click(object sender, EventArgs e)
@@ -163,7 +249,7 @@ namespace CompanyDirectoryApp
                     if (success)
                     {
                         MessageBox.Show("Location added successfully.", "Success");
-                        // Optionally refresh the data
+                        LoadLocationData();
                     }
                     else
                     {
@@ -175,12 +261,56 @@ namespace CompanyDirectoryApp
 
         private void UpdateLocationButton_Click(object sender, EventArgs e)
         {
-            // Implement logic similar to UpdateEmployeeButton_Click
+            if (locationDataGridView.SelectedRows.Count > 0)
+            {
+                int selectedId = Convert.ToInt32(locationDataGridView.SelectedRows[0].Cells["id"].Value);
+                using (var inputForm = new LocationInputForm(selectedId))
+                {
+                    if (inputForm.ShowDialog() == DialogResult.OK)
+                    {
+                        bool success = dbManager.UpdateLocation(selectedId, inputForm.City);
+                        if (success)
+                        {
+                            MessageBox.Show("Location updated successfully.", "Success");
+                            LoadLocationData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to update location.", "Error");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a location to update.", "Info");
+            }
         }
 
         private void DeleteLocationButton_Click(object sender, EventArgs e)
         {
-            // Implement logic similar to DeleteEmployeeButton_Click
+            if (locationDataGridView.SelectedRows.Count > 0)
+            {
+                int selectedId = Convert.ToInt32(locationDataGridView.SelectedRows[0].Cells["id"].Value);
+                var confirmResult = MessageBox.Show("Are you sure you want to delete this location?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    bool success = dbManager.DeleteLocation(selectedId);
+                    if (success)
+                    {
+                        MessageBox.Show("Location deleted successfully.", "Success");
+                        LoadLocationData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to delete location.", "Error");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a location to delete.", "Info");
+            }
         }
     }
 }
