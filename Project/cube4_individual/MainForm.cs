@@ -129,42 +129,29 @@ namespace CompanyDirectoryApp
 
             if (!string.IsNullOrEmpty(nameFilter))
             {
-                filterExpressions.Add($"CONVERT(first_name, System.String) LIKE '%{nameFilter}%' OR CONVERT(last_name, System.String) LIKE '%{nameFilter}%'");
+                filterExpressions.Add($"(CONVERT(first_name, System.String) LIKE '%{nameFilter}%' OR CONVERT(last_name, System.String) LIKE '%{nameFilter}%')");
             }
 
-            if (!string.IsNullOrEmpty(selectedLocation))
+            if (!string.IsNullOrEmpty(selectedLocation) && selectedLocation != "All Locations")
             {
                 filterExpressions.Add($"location = '{selectedLocation.Replace("'", "''")}'"); // Escaping single quotes
             }
 
-            if (!string.IsNullOrEmpty(selectedService))
+            if (!string.IsNullOrEmpty(selectedService) && selectedService != "All Services")
             {
                 filterExpressions.Add($"service_name = '{selectedService.Replace("'", "''")}'"); // Escaping single quotes
             }
 
-            // Check if there are no filters applied
-            if (filterExpressions.Count == 0)
-            {
-                // Reset to show all data
-                dataView.RowFilter = string.Empty;
-            }
-            else
-            {
-                // Apply the filter
-                dataView.RowFilter = string.Join(" AND ", filterExpressions);
-            }
+            // Combine the filter expressions and apply them
+            dataView.RowFilter = filterExpressions.Count > 0 ? string.Join(" AND ", filterExpressions) : string.Empty;
 
-            // Check if the filtered DataView has any rows
-            if (dataView.Count == 0)
-            {
-                // Clear the DataGridView if there are no matches
-                employeeDataGridView.DataSource = null;
-            }
-            else
-            {
-                // Display the filtered data
-                employeeDataGridView.DataSource = dataView;
-            }
+            // Check if the filtered DataView has any rows and update the DataGridView accordingly
+            employeeDataGridView.DataSource = dataView.Count > 0 ? dataView : null;
         }
+
+
+
+
+
     }
 }
