@@ -18,10 +18,15 @@ namespace CompanyDirectoryApp
             {
                 IsPasswordCorrect = true;
                 this.DialogResult = DialogResult.OK;
+
+                // Open the AdminDashboardForm when the password is correct
+                AdminDashboardForm adminDashboard = new AdminDashboardForm();
+                adminDashboard.ShowDialog();
             }
             else
             {
                 IsPasswordCorrect = false;
+                MessageBox.Show("Incorrect password. Please try again.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.DialogResult = DialogResult.Cancel;
             }
         }
