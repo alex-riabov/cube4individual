@@ -29,7 +29,7 @@
         }
 
         private void InitializeComponent()
-        {
+        {  
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.txtFixedPhone = new System.Windows.Forms.TextBox();
