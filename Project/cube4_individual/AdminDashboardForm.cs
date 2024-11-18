@@ -220,15 +220,23 @@ namespace CompanyDirectoryApp
                 var confirmResult = MessageBox.Show("Are you sure you want to delete this service?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmResult == DialogResult.Yes)
                 {
-                    bool success = dbManager.DeleteService(selectedId);
-                    if (success)
+                    try
                     {
-                        MessageBox.Show("Service deleted successfully.", "Success");
-                        LoadServiceData();
+                        bool success = dbManager.DeleteService(selectedId);
+                        if (success)
+                        {
+                            MessageBox.Show("Service deleted successfully.", "Success");
+                            LoadServiceData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to delete service.", "Error");
+                        }
                     }
-                    else
+                    catch (InvalidOperationException ex)
                     {
-                        MessageBox.Show("Failed to delete service.", "Error");
+                        // Show warning if service is in use
+                        MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
@@ -237,6 +245,7 @@ namespace CompanyDirectoryApp
                 MessageBox.Show("Please select a service to delete.", "Info");
             }
         }
+
 
         private void AddLocationButton_Click(object sender, EventArgs e)
         {
@@ -295,15 +304,23 @@ namespace CompanyDirectoryApp
                 var confirmResult = MessageBox.Show("Are you sure you want to delete this location?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmResult == DialogResult.Yes)
                 {
-                    bool success = dbManager.DeleteLocation(selectedId);
-                    if (success)
+                    try
                     {
-                        MessageBox.Show("Location deleted successfully.", "Success");
-                        LoadLocationData();
+                        bool success = dbManager.DeleteLocation(selectedId);
+                        if (success)
+                        {
+                            MessageBox.Show("Location deleted successfully.", "Success");
+                            LoadLocationData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to delete location.", "Error");
+                        }
                     }
-                    else
+                    catch (InvalidOperationException ex)
                     {
-                        MessageBox.Show("Failed to delete location.", "Error");
+                        // Show warning if location is in use
+                        MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
@@ -312,5 +329,6 @@ namespace CompanyDirectoryApp
                 MessageBox.Show("Please select a location to delete.", "Info");
             }
         }
+
     }
 }

@@ -168,6 +168,34 @@ namespace CompanyDirectoryApp
             }
         }
 
+        public bool CanDeleteLocation(int locationId)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM Employees WHERE location_id = @locationId";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@locationId", locationId);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count == 0; // Returns true if no employees are using this location
+            }
+        }
+
+        public bool CanDeleteService(int serviceId)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM Employees WHERE service_id = @serviceId";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@serviceId", serviceId);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count == 0; // Returns true if no employees are using this service
+            }
+        }
+
         public bool DeleteEmployee(int id)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -196,6 +224,11 @@ namespace CompanyDirectoryApp
 
         public bool DeleteLocation(int id)
         {
+            if (!CanDeleteLocation(id))
+            {
+                throw new InvalidOperationException("Cannot delete this location because it is referenced by one or more employees.");
+            }
+
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
@@ -221,6 +254,11 @@ namespace CompanyDirectoryApp
 
         public bool DeleteService(int id)
         {
+            if (!CanDeleteService(id))
+            {
+                throw new InvalidOperationException("Cannot delete this service because it is referenced by one or more employees.");
+            }
+
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
@@ -230,6 +268,7 @@ namespace CompanyDirectoryApp
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
+
 
         public Employee GetEmployeeById(int id)
         {

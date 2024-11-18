@@ -25,14 +25,17 @@ namespace CompanyDirectoryApp
             ServiceSearchComboBox.SelectedIndexChanged += ServiceSearchComboBox_SelectedIndexChanged;
         }
 
+        private bool isPasswordFormOpen = false; // Flag to track if the form is open
+
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            // Detect key combination (e.g., Ctrl + Shift + A)
-            if (e.Control && e.Shift && e.KeyCode == Keys.A)
+            // Detect key combination (e.g., Ctrl + Alt + A)
+            if (e.Control && e.Alt && e.KeyCode == Keys.A)
             {
                 OpenPasswordForm();
             }
         }
+
 
         private void OpenPasswordForm()
         {
@@ -41,15 +44,16 @@ namespace CompanyDirectoryApp
                 DialogResult result = passwordForm.ShowDialog();
                 if (result == DialogResult.OK && passwordForm.IsPasswordCorrect)
                 {
-                    // Admin mode enabled (no message shown)
+                    // Code to handle successful password entry (e.g., enabling admin mode)
                 }
-                else if (result != DialogResult.Cancel)
+                else if (result != DialogResult.Cancel && !passwordForm.IsPasswordCorrect)
                 {
-                    // Only show the error if the dialog result was not Cancel
+                    // Show the message only if the user entered an incorrect password
                     MessageBox.Show("Incorrect password", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
 
 
         private void LoadEmployeeData()
