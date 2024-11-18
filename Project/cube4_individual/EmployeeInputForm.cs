@@ -18,29 +18,36 @@ namespace CompanyDirectoryApp
             InitializeComponent();
             LoadDropdownData();
         }
-
         private void LoadDropdownData()
         {
             try
             {
-                // Create an instance of DatabaseManager
                 var dbManager = new DatabaseManager();
 
-                // Load services into the Service dropdown
-                cmbServiceId.DataSource = dbManager.GetServices(); // Call GetServices() using the instance
-                cmbServiceId.DisplayMember = "ServiceName"; // Ensure this matches the property name in the Service class
-                cmbServiceId.ValueMember = "Id"; // Ensure this matches the property name in the Service class
+                // Load services
+                var services = dbManager.GetServices();
+                if (services.Count == 0)
+                {
+                    MessageBox.Show("No services found. Please check your database.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                cmbServiceId.DataSource = services;
 
-                // Load locations into the Location dropdown
-                cmbLocationId.DataSource = dbManager.GetLocations(); // Call GetLocations() using the instance
-                cmbLocationId.DisplayMember = "City"; // Ensure this matches the property name in the Location class
-                cmbLocationId.ValueMember = "Id"; // Ensure this matches the property name in the Location class
+                // Load locations
+                var locations = dbManager.GetLocations();
+                if (locations.Count == 0)
+                {
+                    MessageBox.Show("No locations found. Please check your database.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                cmbLocationId.DataSource = locations;
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error loading dropdown data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
 
         private void SubmitButton_Click(object sender, EventArgs e)

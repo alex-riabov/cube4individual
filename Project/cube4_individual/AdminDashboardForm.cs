@@ -28,67 +28,112 @@ namespace CompanyDirectoryApp
             }
         }
 
-        // Event handler for adding an employee
         private void AddEmployeeButton_Click(object sender, EventArgs e)
         {
-            // Code for adding an employee (to be implemented)
-            MessageBox.Show("Add Employee functionality not yet implemented.");
+            using (var inputForm = new EmployeeInputForm())
+            {
+                if (inputForm.ShowDialog() == DialogResult.OK)
+                {
+                    bool success = dbManager.AddEmployee(
+                        inputForm.FirstName,
+                        inputForm.LastName,
+                        inputForm.FixedPhone,
+                        inputForm.MobilePhone,
+                        inputForm.Email,
+                        inputForm.ServiceId,
+                        inputForm.LocationId
+                    );
+
+                    if (success)
+                    {
+                        MessageBox.Show("Employee added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadEmployeeData(); // Refresh the grid
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to add employee.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
 
-        // Event handler for updating an employee
+        private void AddServiceButton_Click(object sender, EventArgs e)
+        {
+            using (var inputForm = new ServiceInputForm())
+            {
+                if (inputForm.ShowDialog() == DialogResult.OK)
+                {
+                    bool success = dbManager.AddService(inputForm.ServiceName);
+
+                    if (success)
+                    {
+                        MessageBox.Show("Service added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Optionally reload data if needed
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to add service.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void AddLocationButton_Click(object sender, EventArgs e)
+        {
+            using (var inputForm = new LocationInputForm())
+            {
+                if (inputForm.ShowDialog() == DialogResult.OK)
+                {
+                    bool success = dbManager.AddLocation(inputForm.City);
+
+                    if (success)
+                    {
+                        MessageBox.Show("Location added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Optionally reload data if needed
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to add location.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
         private void UpdateEmployeeButton_Click(object sender, EventArgs e)
         {
-            // Code for updating an employee (to be implemented)
+            // Code to update an employee. You can use an input form to modify the selected employee's details.
             MessageBox.Show("Update Employee functionality not yet implemented.");
         }
 
-        // Event handler for deleting an employee
         private void DeleteEmployeeButton_Click(object sender, EventArgs e)
         {
-            // Code for deleting an employee (to be implemented)
+            // Code to delete an employee.
             MessageBox.Show("Delete Employee functionality not yet implemented.");
         }
 
-        // Event handler for adding a service
-        private void AddServiceButton_Click(object sender, EventArgs e)
-        {
-            // Code for adding a service (to be implemented)
-            MessageBox.Show("Add Service functionality not yet implemented.");
-        }
-
-        // Event handler for updating a service
         private void UpdateServiceButton_Click(object sender, EventArgs e)
         {
-            // Code for updating a service (to be implemented)
+            // Code to update a service. You can use an input form to modify the selected service's details.
             MessageBox.Show("Update Service functionality not yet implemented.");
         }
 
-        // Event handler for deleting a service
         private void DeleteServiceButton_Click(object sender, EventArgs e)
         {
-            // Code for deleting a service (to be implemented)
+            // Code to delete a service.
             MessageBox.Show("Delete Service functionality not yet implemented.");
         }
 
-        // Event handler for adding a location
-        private void AddLocationButton_Click(object sender, EventArgs e)
-        {
-            // Code for adding a location (to be implemented)
-            MessageBox.Show("Add Location functionality not yet implemented.");
-        }
-
-        // Event handler for updating a location
         private void UpdateLocationButton_Click(object sender, EventArgs e)
         {
-            // Code for updating a location (to be implemented)
+            // Code to update a location. You can use an input form to modify the selected location's details.
             MessageBox.Show("Update Location functionality not yet implemented.");
         }
 
-        // Event handler for deleting a location
         private void DeleteLocationButton_Click(object sender, EventArgs e)
         {
-            // Code for deleting a location (to be implemented)
+            // Code to delete a location.
             MessageBox.Show("Delete Location functionality not yet implemented.");
         }
+
     }
 }
