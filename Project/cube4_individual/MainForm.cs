@@ -72,8 +72,8 @@ namespace CompanyDirectoryApp
         private void LoadLocationAndServiceFilters()
         {
             // Create empty fields for "no filter" options
-            Location emptyLocation = new Location { Id = 0, City = "" }; // Represents no filter
-            Service emptyService = new Service { Id = 0, ServiceName = "" }; // Represents no filter
+            Location emptyLocation = new Location { Id = 0, City = "" }; 
+            Service emptyService = new Service { Id = 0, ServiceName = "" };
 
             // Load locations and services from the database
             var locations = dbManager.GetLocations();
@@ -121,10 +121,8 @@ namespace CompanyDirectoryApp
             string selectedLocation = SiteSearchComboBox.SelectedItem is Location location && !string.IsNullOrEmpty(location.City) ? location.City : null;
             string selectedService = ServiceSearchComboBox.SelectedItem is Service service && !string.IsNullOrEmpty(service.ServiceName) ? service.ServiceName : null;
 
-            // Create a DataView for filtering
             DataView dataView = new DataView(employeeData);
 
-            // Build the filter expression
             List<string> filterExpressions = new List<string>();
 
             if (!string.IsNullOrEmpty(nameFilter))
@@ -142,16 +140,9 @@ namespace CompanyDirectoryApp
                 filterExpressions.Add($"service_name = '{selectedService.Replace("'", "''")}'"); // Escaping single quotes
             }
 
-            // Combine the filter expressions and apply them
             dataView.RowFilter = filterExpressions.Count > 0 ? string.Join(" AND ", filterExpressions) : string.Empty;
 
-            // Check if the filtered DataView has any rows and update the DataGridView accordingly
             employeeDataGridView.DataSource = dataView.Count > 0 ? dataView : null;
         }
-
-
-
-
-
     }
 }

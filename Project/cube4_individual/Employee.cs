@@ -10,7 +10,7 @@
         public string Email { get; set; }
         public int ServiceId { get; set; }
         public int LocationId { get; set; }
-        public string ServiceName { get; set; } // To display in the data grid
-        public string Location { get; set; } // To display in the data grid
+        public string ServiceName { get; set; }
+        public string Location { get; set; } 
     }
 }
