@@ -7,8 +7,6 @@ WinForms / .NET 8 phone-book for a growing, multi-site French food-industry comp
 | **Visitor** | • Search employees by _surname substring_, _site_ or _service_ • View the full employee card (fixed & mobile phone, e-mail, service, site) |
 | **Administrator** | Hidden entry (press **Ctrl + Alt + A**) → password prompt → CRUD on **Sites**, **Services**, **Employees** with referential-integrity checks (cannot delete a site or service still referenced by employees) |
 
-All data are stored in MySQL; the WinForms UI talks to the DB through a thin DAO in `DatabaseManager.cs` :contentReference[oaicite:0]{index=0}, and the main search grid lives in `MainForm.cs` :contentReference[oaicite:1]{index=1}.  
-The assignment brief is reproduced in *docs/Consignes évaluation bloc INFCDL140* :contentReference[oaicite:4]{index=4}.
 
 ## Tech stack
 | Layer        | Details |
