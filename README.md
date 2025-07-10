@@ -4,7 +4,7 @@ WinForms / .NET 8 phone-book for a growing, multi-site French food-industry comp
 ## What it does
 | Role | Capabilities |
 |------|--------------|
-| **Visitor** | • Search employees by _surname substring_, _site_ or _service_ • View the full employee card (fixed & mobile phone, e-mail, service, site) |
+| **Visitor** | Search employees by _surname substring_, _site_ or _service_ • View the full employee card (fixed & mobile phone, e-mail, service, site) |
 | **Administrator** | Hidden entry (press **Ctrl + Alt + A**) → password prompt → CRUD on **Sites**, **Services**, **Employees** with referential-integrity checks (cannot delete a site or service still referenced by employees) |
 
 
