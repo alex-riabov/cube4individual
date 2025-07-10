@@ -1,4 +1,4 @@
-# Cube 4 – Company Directory Desktop App  
+# Company Directory Desktop App  
 WinForms / .NET 8 phone-book for a growing, multi-site French food-industry company (school project).
 
 ## What it does
